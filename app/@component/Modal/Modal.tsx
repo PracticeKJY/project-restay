@@ -85,15 +85,15 @@ const Modal: FC<ModalProps> = ({
         <div
           className="
           relative 
-          w-full
-          md:w-4/6
-          lg:w-3/6
-          xl:w-2/5
-          my-6
+          max-w-screen-sm 
+          my-6 
           mx-auto 
+          flex 
+          flex-col 
           h-full 
-          lg:h-auto
-          md:h-auto
+          lg:h-auto 
+          md:h-auto 
+          w-full          
           "
         >
           {/* CONTENT */}
@@ -200,6 +200,7 @@ const Modal: FC<ModalProps> = ({
                     onClick={handleSubmit}
                   />
                 </div>
+                {footer}
               </div>
             </div>
           </div>
