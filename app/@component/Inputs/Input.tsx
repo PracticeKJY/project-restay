@@ -67,7 +67,7 @@ const Input: FC<InputProps> = ({
       `}
       />
       <label
-        htmlFor=""
+        htmlFor={id}
         className={`
       absolute
       text-md
