@@ -1,9 +1,11 @@
 import "./globals.css"
 import { Noto_Serif_KR } from "next/font/google"
 import Navbar from "./@component/Header/Navbar"
-import Modal from "./@component/Modal/Modal"
 import RegisterModal from "./@component/Modal/RegisterModal"
 import ToasterProvider from "./@providers/ToasterProvider"
+import LoginModal from "./@component/Modal/LoginModal"
+import getCurrentUser from "./@actions/getCurrentUser"
+// import RecoilProvider from "./@recoil/provider/RecoilProvider"
 
 const notoSerif = Noto_Serif_KR({
   weight: "400",
@@ -16,17 +18,21 @@ export const metadata = {
   description: "restay homepage",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const currentUser = await getCurrentUser()
+
+
   return (
     <html lang="ko-KR">
       <body className={notoSerif.className}>
         <ToasterProvider />
+        <LoginModal />
         <RegisterModal />
-        <Navbar />
+        <Navbar isLogin={currentUser}/>
         {children}
       </body>
     </html>
