@@ -127,7 +127,7 @@ const RegisterModal = () => {
           <div
             onClick={registerModal.onClose}
             className="
-          text-netural-800
+            text-black
           cursor-pointer
           hover:underline
           "
@@ -144,7 +144,7 @@ const RegisterModal = () => {
       disabled={isLoading}
       isOpen={registerModal.isOpen}
       title={"회원가입"}
-      actionLabel={"계속"}
+      actionLabel={"회원가입"}
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
