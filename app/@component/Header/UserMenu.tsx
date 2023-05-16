@@ -75,7 +75,7 @@ const UserMenu: FC<UserMenuProps> = ({ isLogin }) => {
           >
             <AiOutlineMenu />
             <div className="hidden md:block">
-              <Avatar />
+              <Avatar accountImage={isLogin?.image} />
             </div>
           </div>
         </div>

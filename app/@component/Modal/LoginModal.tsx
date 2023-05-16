@@ -94,15 +94,19 @@ const LoginModal = () => {
     >
       <Button
         outline
-        label={"Continue with Google"}
+        label={"Google로 시작하기"}
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google")
+        }}
       />
       <Button
         outline
-        label={"Continue with Github"}
+        label={"Github로 시작하기"}
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => {
+          signIn("github")
+        }}
       />
       <div
         className="
