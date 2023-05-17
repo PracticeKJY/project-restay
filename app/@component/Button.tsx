@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { FC } from "react"
 import { IconType } from "react-icons"
 
@@ -9,7 +10,7 @@ interface ButtonProps {
   disabled?: boolean
   outline?: boolean
   small?: boolean
-  icon?: IconType
+  icon?: IconType | string
 }
 
 const Button: FC<ButtonProps> = ({
@@ -41,15 +42,29 @@ ${small ? "font-light" : "font-semibold"}
 ${small ? "border-[1px]" : "border-2"}    
     `}
     >
-      {Icon && (
-        <Icon
-          size={24}
+      {typeof Icon === "string" ? (
+        <Image
+          src={Icon}
+          alt=""
+          width={25}
+          height={25}
           className="
+            absolute
+            left-4
+            top-3
+          "
+        />
+      ) : (
+        Icon && (
+          <Icon
+            size={24}
+            className="
         absolute
         left-4
         top-3
         "
-        />
+          />
+        )
       )}
       {label}
     </button>

@@ -4,6 +4,7 @@ import axios from "axios"
 import { signIn } from "next-auth/react"
 import { useCallback, useState } from "react"
 import { AiFillGithub } from "react-icons/ai"
+import { RiKakaoTalkFill } from "react-icons/ri"
 import { FcGoogle } from "react-icons/Fc"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import useLoginModal from "@/@hooks/useLoginModal"
@@ -14,11 +15,12 @@ import { toast } from "react-hot-toast"
 import Button from "../Button"
 import { useRouter } from "next/navigation"
 
+import NaverIcon from "../../../public/naverIcon.png"
+
 const LoginModal = () => {
   const router = useRouter()
   const loginModal = useLoginModal()
   const [isLoading, setIsLoading] = useState(false)
-
   const {
     register,
     handleSubmit,
@@ -108,6 +110,22 @@ const LoginModal = () => {
           signIn("github")
         }}
       />
+      <Button
+        outline
+        label={"Naver으로 시작하기"}
+        icon={"/naverIcon.png"}
+        onClick={() => {
+          signIn("naver")
+        }}
+      />
+      <Button
+        outline
+        label={"Kakao으로 시작하기"}
+        icon={RiKakaoTalkFill}
+        onClick={() => {
+          signIn("kakao")
+        }}
+      />
       <div
         className="
       text-neutral-500
@@ -142,16 +160,18 @@ const LoginModal = () => {
   )
 
   return (
-    <Modal
-      disabled={isLoading}
-      isOpen={loginModal.isOpen}
-      title={"로그인"}
-      actionLabel={"로그인"}
-      onClose={loginModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-      footer={footerContent}
-    />
+    <>
+      <Modal
+        disabled={isLoading}
+        isOpen={loginModal.isOpen}
+        title={"로그인"}
+        actionLabel={"로그인"}
+        onClose={loginModal.onClose}
+        onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
+        footer={footerContent}
+      />
+    </>
   )
 }
 

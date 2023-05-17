@@ -25,6 +25,7 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser()
 
+  console.log(currentUser, "로그인됬어요?")
 
   return (
     <html lang="ko-KR">
@@ -32,7 +33,7 @@ export default async function RootLayout({
         <ToasterProvider />
         <LoginModal />
         <RegisterModal />
-        <Navbar isLogin={currentUser}/>
+        <Navbar isLogin={currentUser} />
         {children}
       </body>
     </html>
