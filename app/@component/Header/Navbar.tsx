@@ -3,11 +3,11 @@
 import { User } from "@prisma/client"
 
 import Container from "../Container"
+import Categories from "./Categories"
 import Logo from "@/@component/Header/Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
 import { FC } from "react"
-import { SessionProvider } from "next-auth/react"
 
 type NavbarProps = {
   isLogin?: User | null
@@ -16,12 +16,11 @@ type NavbarProps = {
 const Navbar: FC<NavbarProps> = ({ isLogin }) => {
   return (
     <>
-      <SessionProvider>
-        <div className="fixed w-full bg-white z-10 shadow-sm">
-          <div className="py-4 border-b-[1px]">
-            <Container>
-              <div
-                className="
+      <div className="fixed w-full bg-white z-10 shadow-sm">
+        <div className="py-4 border-b-[1px]">
+          <Container>
+            <div
+              className="
               flex
               flex-row
               items-center
@@ -29,16 +28,15 @@ const Navbar: FC<NavbarProps> = ({ isLogin }) => {
               gap-3
               md:gap-0
               "
-              >
-                <Logo />
-                <Search />
-                <UserMenu isLogin={isLogin} />
-              </div>
-            </Container>
-          </div>
-          <div>여기에 짜란하고뜨겟지아래에</div>
+            >
+              <Logo />
+              <Search />
+              <UserMenu isLogin={isLogin} />
+            </div>
+          </Container>
         </div>
-      </SessionProvider>
+        <Categories />
+      </div>
     </>
   )
 }
