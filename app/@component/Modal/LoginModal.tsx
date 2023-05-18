@@ -5,9 +5,10 @@ import { signIn } from "next-auth/react"
 import { useCallback, useState } from "react"
 import { AiFillGithub } from "react-icons/ai"
 import { RiKakaoTalkFill } from "react-icons/ri"
-import { FcGoogle } from "react-icons/Fc"
+import { FcGoogle } from "react-icons/fc"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import useLoginModal from "@/@hooks/useLoginModal"
+import useRegisterModal from "@/@hooks/useRegisterModal"
 import Modal from "./Modal"
 import Heading from "../Heading"
 import Input from "../Inputs/Input"
@@ -20,6 +21,7 @@ import NaverIcon from "../../../public/naverIcon.png"
 const LoginModal = () => {
   const router = useRouter()
   const loginModal = useLoginModal()
+  const registerModal = useRegisterModal()
   const [isLoading, setIsLoading] = useState(false)
   const {
     register,
@@ -52,6 +54,11 @@ const LoginModal = () => {
       }
     })
   }
+
+  const onClick = useCallback(() => {
+    loginModal.onClose()
+    registerModal.onOpen()
+  }, [loginModal, registerModal])
 
   const bodyContent = (
     <div
@@ -143,16 +150,16 @@ const LoginModal = () => {
         justify-center
         "
         >
-          <div>비밀번호가 기억이 나지 않으신가요?</div>
+          <div>Restay이 처음이신가요?</div>
           <div
-            onClick={loginModal.onClose}
+            onClick={onClick}
             className="
             text-black
           cursor-pointer
           hover:underline
           "
           >
-            비밀번호 찾기
+            회원가입
           </div>
         </div>
       </div>

@@ -3,9 +3,10 @@
 import axios from "axios"
 import { useCallback, useState } from "react"
 import { AiFillGithub } from "react-icons/ai"
-import { FcGoogle } from "react-icons/Fc"
+import { FcGoogle } from "react-icons/fc"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import useRegisterModal from "@/@hooks/useRegisterModal"
+import useLoginModal from "@/@hooks/useLoginModal"
 import Modal from "./Modal"
 import Heading from "../Heading"
 import Input from "../Inputs/Input"
@@ -15,6 +16,7 @@ import { signIn } from "next-auth/react"
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal()
+  const loginModal = useLoginModal()
   const [isLoading, setIsLoading] = useState(false)
 
   const {
@@ -23,7 +25,6 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -45,6 +46,11 @@ const RegisterModal = () => {
         setIsLoading(false)
       })
   }
+
+  const onClick = useCallback(() => {
+    registerModal.onClose()
+    loginModal.onOpen()
+  }, [registerModal, loginModal])
 
   const bodyContent = (
     <div
@@ -130,7 +136,7 @@ const RegisterModal = () => {
         >
           <div>이미 계정이 있으신가요?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={onClick}
             className="
             text-black
           cursor-pointer
