@@ -5,6 +5,7 @@ import RegisterModal from "./@component/Modal/RegisterModal"
 import ToasterProvider from "./@providers/ToasterProvider"
 import LoginModal from "./@component/Modal/LoginModal"
 import getCurrentUser from "./@actions/getCurrentUser"
+import RentModal from "./@component/Modal/RentModal"
 // import RecoilProvider from "./@recoil/provider/RecoilProvider"
 
 const notoSerif = Noto_Serif_KR({
@@ -25,12 +26,11 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser()
 
-  console.log(currentUser, "로그인됬어요?")
-
   return (
     <html lang="ko-KR">
       <body className={notoSerif.className}>
         <ToasterProvider />
+        <RentModal />
         <LoginModal />
         <RegisterModal />
         <Navbar isLogin={currentUser} />

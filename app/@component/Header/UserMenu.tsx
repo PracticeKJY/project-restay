@@ -10,6 +10,7 @@ import { signOut } from "next-auth/react"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
 import { User } from "@prisma/client"
+import useRentModal from "@/@hooks/useRentModal"
 
 type UserMenuProps = {
   isLogin?: User | null
@@ -17,6 +18,14 @@ type UserMenuProps = {
 
 const UserMenu: FC<UserMenuProps> = ({ isLogin }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const loginModal = useLoginModal()
+  const rentModal = useRentModal()
+  const onClick = useCallback(() => {
+    if (!isLogin) {
+      return loginModal.onOpen()
+    }
+    rentModal.onOpen()
+  }, [isLogin, loginModal, rentModal])
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value)
@@ -38,6 +47,7 @@ const UserMenu: FC<UserMenuProps> = ({ isLogin }) => {
       "
         >
           <div
+            onClick={onClick}
             className="
       hidden
       md:block
@@ -146,7 +156,7 @@ export const LoginMenu = () => {
 
 export const LogoutMenu = () => {
   const router = useRouter()
-
+  const rentModal = useRentModal()
   const logOutHandler = async () => {
     try {
       await signOut({
@@ -164,8 +174,13 @@ export const LogoutMenu = () => {
   return (
     <>
       <MenuItem onClick={() => {}} label="여행" />
+      <MenuItem
+        onClick={() => {
+          rentModal.onOpen()
+        }}
+        label="호스팅"
+      />
       <MenuItem onClick={() => {}} label="위시리스트" />
-      <MenuItem onClick={() => {}} label="알림" />
       <MenuItem onClick={() => {}} label="메세지" />
       <MenuItem onClick={logOutHandler} label="로그아웃" />
     </>
