@@ -1,5 +1,4 @@
-'use client'
-
+"use client"
 
 import Container from "../Container"
 
@@ -23,77 +22,77 @@ import { usePathname, useSearchParams } from "next/navigation"
 
 export const categories = [
   {
-    label: "Beach",
+    label: "해변 근처",
     icon: TbBeach,
     description: "This property is close to the beach!",
   },
   {
-    label: "Windmills",
+    label: "풍차",
     icon: GiWindmill,
     description: "This property is has windmills!",
   },
   {
-    label: "Modern",
+    label: "빌라",
     icon: MdOutlineVilla,
     description: "This property is modern!",
   },
   {
-    label: "Countryside",
+    label: "시골",
     icon: TbMountain,
     description: "This property is in the countryside!",
   },
   {
-    label: "Pools",
+    label: "수영장",
     icon: TbPool,
     description: "This is property has a beautiful pool!",
   },
   {
-    label: "Islands",
+    label: "섬",
     icon: GiIsland,
     description: "This property is on an island!",
   },
   {
-    label: "Lake",
+    label: "호수",
     icon: GiBoatFishing,
     description: "This property is near a lake!",
   },
   {
-    label: "Skiing",
+    label: "스키",
     icon: FaSkiing,
     description: "This property has skiing activies!",
   },
   {
-    label: "Castles",
+    label: "캐슬",
     icon: GiCastle,
     description: "This property is an ancient castle!",
   },
   {
-    label: "Caves",
+    label: "동굴",
     icon: GiCaveEntrance,
     description: "This property is in a spooky cave!",
   },
   {
-    label: "Camping",
+    label: "캠핑",
     icon: GiForestCamp,
     description: "This property offers camping activities!",
   },
   {
-    label: "Arctic",
+    label: "북극 지역",
     icon: BsSnow,
     description: "This property is in arctic environment!",
   },
   {
-    label: "Desert",
+    label: "사막",
     icon: GiCactus,
     description: "This property is in the desert!",
   },
   {
-    label: "Barns",
+    label: "헛간",
     icon: GiBarn,
     description: "This property is in a barn!",
   },
   {
-    label: "Lux",
+    label: "특별한 시설",
     icon: IoDiamond,
     description: "This property is brand new and luxurious!",
   },

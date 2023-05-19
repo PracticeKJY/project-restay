@@ -14,7 +14,7 @@ const CategoryInput: FC<CategoryInput> = ({
   onClick,
   selected,
   label,
-  icon,
+  icon: Icon,
 }) => {
   return (
     <div
@@ -25,7 +25,8 @@ const CategoryInput: FC<CategoryInput> = ({
     ${selected ? "border-black" : "border-neutral-200"}
     `}
     >
-      <div></div>
+      <Icon size={30} />
+      <div className="font-semibold">{label}</div>
     </div>
   )
 }
