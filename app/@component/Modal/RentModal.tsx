@@ -10,6 +10,7 @@ import { FieldValues, useForm } from "react-hook-form"
 import CountrySelect from "../Inputs/CountrySelect"
 import MapComponent from "./../MapComponent"
 import dynamic from "next/dynamic"
+import Counter from "../Inputs/Counter"
 
 //enum은 관련된 상수들을 그룹화하고 식별하기 위해 사용됩니다. 특히, enum은 서로 연관된 상수의 집합을 정의하는 데 유용합니다. 이렇게 정의된 enum은 TypeScript 코드에서 해당 상수를 사용할 수 있게 되며, 가독성과 유지보수의 편의성을 높여줍니다.
 //TypeScript에서는 enum 상수에 대한 값을 따로 지정하지 않으면, 0부터 시작하여 순차적인 값(0, 1, 2, ...)이 자동으로 할당됩니다
@@ -49,6 +50,9 @@ const RentModal = () => {
 
   const category = watch("category")
   const location = watch("location")
+  const guestCount = watch("guestCount")
+  const roomCount = watch("roomCount")
+  const bathroomCount = watch("bathroomCount")
   const MapComponent = useMemo(
     () =>
       dynamic(() => import("../MapComponent"), {
@@ -118,7 +122,7 @@ const RentModal = () => {
       </div>
     </div>
   )
-
+  // STEP.LOCATION
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div
@@ -135,6 +139,54 @@ const RentModal = () => {
           onChange={(value) => setCustomValue("location", value)}
         />
         <MapComponent center={location?.latlng} />
+      </div>
+    )
+  }
+  // STEP.INFO
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div
+        className="
+    flex flex-col gap-8
+    "
+      >
+        <Heading
+          title="공유하실 장소에 몇가지 사항을 알려주세요."
+          subtitle="어떠한 편의 시설들이 있나요?"
+        />
+        <Counter
+          title={"게스트"}
+          subTitle={"총 인원수를 알려주세요."}
+          value={guestCount}
+          onChange={(value) => setCustomValue("guestCount", value)}
+        />
+        <Counter
+          title={"방"}
+          subTitle={"총 방의 갯수를 알려주세요."}
+          value={roomCount}
+          onChange={(value) => setCustomValue("roomCount", value)}
+        />
+        <Counter
+          title={"화장실"}
+          subTitle={"총 화장실의 갯수를 알려주세요."}
+          value={bathroomCount}
+          onChange={(value) => setCustomValue("bathroomCount", value)}
+        />
+      </div>
+    )
+  }
+  // STEP.IMAGES
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div
+        className="
+    flex flex-col gap-8
+    "
+      >
+        <Heading
+          title="공유하실 장소의 사진들을 올려주세요."
+          subtitle="멋지게 찍어서 올리시면 더욱 좋겠쥬?"
+        />
       </div>
     )
   }
