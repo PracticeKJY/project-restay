@@ -36,3 +36,18 @@ const MapComponent: FC<MapComponentProps> = ({ center }) => {
 }
 
 export default MapComponent
+
+// marker를 직접 클릭으로 표시하는 코드
+// 1. 'react-leaflet'에 useMapEvents 추가
+// 2. <AddMarkerOnClick/> 만든 후, 추가
+// const [markerPosition, setMarkerPosition] = useState<L.LatLngExpression | null>(null)
+//
+// const AddMarkerOnClick = () => {
+//   useMapEvents({
+//     click: (e) => {
+//       setMarkerPosition(e.latlng)
+//     },
+//   })
+
+//   return markerPosition === null ? null : <Marker position={markerPosition} />
+// }
