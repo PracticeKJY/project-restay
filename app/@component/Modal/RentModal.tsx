@@ -11,6 +11,7 @@ import CountrySelect from "../Inputs/CountrySelect"
 import MapComponent from "./../MapComponent"
 import dynamic from "next/dynamic"
 import Counter from "../Inputs/Counter"
+import ImageUpload from "../Inputs/ImageUpload"
 
 //enum은 관련된 상수들을 그룹화하고 식별하기 위해 사용됩니다. 특히, enum은 서로 연관된 상수의 집합을 정의하는 데 유용합니다. 이렇게 정의된 enum은 TypeScript 코드에서 해당 상수를 사용할 수 있게 되며, 가독성과 유지보수의 편의성을 높여줍니다.
 //TypeScript에서는 enum 상수에 대한 값을 따로 지정하지 않으면, 0부터 시작하여 순차적인 값(0, 1, 2, ...)이 자동으로 할당됩니다
@@ -53,6 +54,7 @@ const RentModal = () => {
   const guestCount = watch("guestCount")
   const roomCount = watch("roomCount")
   const bathroomCount = watch("bathroomCount")
+  const imageSrc = watch("imageSrc")
   const MapComponent = useMemo(
     () =>
       dynamic(() => import("../MapComponent"), {
@@ -180,12 +182,16 @@ const RentModal = () => {
     bodyContent = (
       <div
         className="
-    flex flex-col gap-8
-    "
+      flex flex-col gap-8
+      "
       >
         <Heading
           title="공유하실 장소의 사진들을 올려주세요."
           subtitle="멋지게 찍어서 올리시면 더욱 좋겠쥬?"
+        />
+        <ImageUpload
+          value={imageSrc}
+          onChange={(value) => setCustomValue("imageSrc", value)}
         />
       </div>
     )
