@@ -41,7 +41,7 @@ const CountrySelect: FC<CountrySelectProps> = ({ value, onChange }) => {
           </div>
         )}
         classNames={{
-          control: () => "p-3 border -2",
+          control: () => "p-3 border-2",
           input: () => "text-lg",
           option: () => "text-lg",
         }}
