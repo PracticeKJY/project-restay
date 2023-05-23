@@ -6,12 +6,16 @@ import { useMemo, useState } from "react"
 import Heading from "../Heading"
 import { categories } from "../Header/Categories"
 import CategoryInput from "../Inputs/CategoryInput"
-import { FieldValues, useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import CountrySelect from "../Inputs/CountrySelect"
 import MapComponent from "./../MapComponent"
 import dynamic from "next/dynamic"
 import Counter from "../Inputs/Counter"
 import ImageUpload from "../Inputs/ImageUpload"
+import Input from "../Inputs/Input"
+import axios from "axios"
+import { toast } from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 //enum은 관련된 상수들을 그룹화하고 식별하기 위해 사용됩니다. 특히, enum은 서로 연관된 상수의 집합을 정의하는 데 유용합니다. 이렇게 정의된 enum은 TypeScript 코드에서 해당 상수를 사용할 수 있게 되며, 가독성과 유지보수의 편의성을 높여줍니다.
 //TypeScript에서는 enum 상수에 대한 값을 따로 지정하지 않으면, 0부터 시작하여 순차적인 값(0, 1, 2, ...)이 자동으로 할당됩니다
@@ -25,8 +29,10 @@ enum STEPS {
 }
 
 const RentModal = () => {
+  const router = useRouter()
   const rentModal = useRentModal()
   const [step, setStep] = useState(STEPS.CATEGORY)
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -76,6 +82,30 @@ const RentModal = () => {
   }
   const onNext = () => {
     setStep((value) => value + 1)
+  }
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (step !== STEPS.PRICE) {
+      return onNext()
+    }
+
+    setIsLoading(true)
+
+    axios
+      .post("/api/listings", data)
+      .then(() => {
+        toast.success("리스트가 생성되었어요")
+        router.refresh()
+        reset()
+        setStep(STEPS.CATEGORY)
+        rentModal.onClose()
+      })
+      .catch(() => {
+        toast.error("리스트 생성에 실패했어요")
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const actionLabel = useMemo(() => {
@@ -196,13 +226,70 @@ const RentModal = () => {
       </div>
     )
   }
+  // STEP.DESCRIPTION
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div
+        className="
+      flex flex-col gap-8
+      "
+      >
+        <Heading
+          title="공유하실 공간을 설명해주세요."
+          subtitle="짧고 매콤한 표현으로 부탁드려요~!"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    )
+  }
+  // STEP.PRICE
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div
+        className="
+      flex flex-col gap-8
+      "
+      >
+        <Heading
+          title="가격을 정해주세요."
+          subtitle="1박당 가격으로 정하시면 되요"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    )
+  }
 
   return (
     <Modal
       isOpen={rentModal.isOpen}
       title={"Restay할 준비가 되셨나요?"}
       onClose={rentModal.onClose}
-      onSubmit={onNext}
+      onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       secondaryActionLabel={secondaryActionLabel}
